@@ -21,7 +21,9 @@ namespace ConsoleUI
         {
             CarManager carManager = new CarManager(new EfCarDal());
 
-            foreach (var item in carManager.GetCarsByColorId(2))
+            var result = carManager.GetCarsByColorId(2);
+
+            foreach (var item in result.Data)
             {
                 Console.WriteLine("Car Id : " + item.Id + " Model Year : " + item.ModelYear + " Daily Price : " + item.DailyPrice + " Description : " + item.Description + " Color Id : " + item.ColorId);
             }
@@ -31,7 +33,9 @@ namespace ConsoleUI
         {
             CarManager carManager = new CarManager(new EfCarDal());
 
-            foreach (var item in carManager.GetCarsByBrandId(1))
+            var result = carManager.GetCarsByBrandId(1);
+
+            foreach (var item in result.Data)
             {
                 Console.WriteLine("Car Id : " + item.Id + " Model Year : " + item.ModelYear + " Daily Price : " + item.DailyPrice + " Description : " + item.Description + " Brand Id : " + item.BrandId);
             }
@@ -58,17 +62,29 @@ namespace ConsoleUI
         {
             CarManager carManager = new CarManager(new EfCarDal());
 
-            foreach (var item in carManager.GetCarDetailDtos())
+            var result = carManager.GetCarDetailDtos();
+
+            if (result.Success)
             {
-                Console.WriteLine("Model Year : " + item.ModelYear + " Brand Name : " + item.BrandName + " Color Name : " + item.ColorName + " Daily Price : " + item.DailyPrice);
+                foreach (var item in result.Data)
+                {
+                    Console.WriteLine("Model Year : " + item.ModelYear + " Brand Name : " + item.BrandName + " Color Name : " + item.ColorName + " Daily Price : " + item.DailyPrice);
+                }
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+            
         }
 
         private static void GetAll()
         {
             CarManager carManager = new CarManager(new EfCarDal());
 
-            foreach (var item in carManager.GetAll())
+            var result = carManager.GetAll();
+
+            foreach (var item in result.Data)
             {
                 Console.WriteLine(item.ModelYear + " Model " + item.Description + " Günlük " + item.DailyPrice + " TL");
             }

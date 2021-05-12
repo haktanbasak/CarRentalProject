@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entity.Concrete;
 using Entity.DTOs;
@@ -17,32 +19,49 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public void Add(Car car)
+        public IResult Add(Car car)
         {
             if(car.Description.Length>=2 && car.DailyPrice > 0)
             {
                 _carDal.Add(car);
+                return new SuccessResult(Messages.CarAdded);
+            }
+            else
+            {
+                return new ErrorResult(Messages.CarDontAdded);
             }
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            return _carDal.GetAll();
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll());
         }
 
-        public List<CarDetailDto> GetCarDetailDtos()
+        public IDataResult<Car> GetById(int carId)
         {
-            return _carDal.GetCarDetailDtos();
+            return new SuccessDataResult<Car>(_carDal.Get(c=> c.Id == carId));
         }
 
-        public List<Car> GetCarsByBrandId(int brandId)
+        public IDataResult<List<CarDetailDto>> GetCarDetailDtos()
         {
-            return _carDal.GetAll(c => c.BrandId == brandId);
+            if(DateTime.Now.Hour == 6)
+            {
+                Console.WriteLine(Messages.MaintenanceTime);
+            }
+            
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetailDtos());
+
+            
         }
 
-        public List<Car> GetCarsByColorId(int colorId)
+        public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
         {
-            return _carDal.GetAll(c => c.ColorId == colorId);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == brandId));
+        }
+
+        public IDataResult<List<Car>> GetCarsByColorId(int colorId)
+        {
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == colorId));
         }
     }
 }
