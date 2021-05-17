@@ -15,6 +15,58 @@ namespace ConsoleUI
             //CarAddTest();
             //GetCarsByBrandId();
             //GetCarsByColorId();
+            //RentalAddTest();
+            //CustomerAddTest();
+            //RentalDeleteTest();
+
+        }
+
+        private static void RentalDeleteTest()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            rentalManager.Delete(new Rental { Id = 7000 });
+        }
+
+        private static void CustomerAddTest()
+        {
+            Customer customer1 = new Customer
+            {
+
+                UserId = 2,
+                CompanyName = "Rent Car"
+            };
+
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            customerManager.Add(customer1);
+
+            var result1 = customerManager.GetAll();
+
+            if (result1.Success == true)
+            {
+                foreach (var customer in result1.Data)
+                {
+                    Console.WriteLine(customer.UserId + " " + customer.CompanyName);
+                }
+            }
+            else
+            {
+                Console.WriteLine(result1.Message);
+            }
+        }
+
+        private static void RentalAddTest()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+
+            Rental rental1 = new Rental
+            {
+                CarId = 3,
+                CustomerId = 3,
+                RentDate = DateTime.Now,
+                ReturnDate = DateTime.Now
+            };
+
+            rentalManager.Add(rental1);
         }
 
         private static void GetCarsByColorId()
