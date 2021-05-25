@@ -17,5 +17,7 @@ namespace Business.Constants
         public static string RentalDeleted = "Deleted";
         public static string RentalFailures = "Fails";
         public static string Success = "Succeed";
+        public static string CarImageAdded = "Araba görseli eklendi";
+        public static string CarImageLimitExceeded = "Daha fazla görüntü ekleyemezsiniz";
     }
 }
