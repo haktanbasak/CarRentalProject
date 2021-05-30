@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Business.Constants
@@ -19,5 +20,6 @@ namespace Business.Constants
         public static string Success = "Succeed";
         public static string CarImageAdded = "Araba görseli eklendi";
         public static string CarImageLimitExceeded = "Daha fazla görüntü ekleyemezsiniz";
+        public static string AuthorizationDenied = "Yetkiniz yok";
     }
 }
