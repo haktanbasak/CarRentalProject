@@ -21,5 +21,6 @@ namespace Business.Constants
         public static string CarImageAdded = "Araba görseli eklendi";
         public static string CarImageLimitExceeded = "Daha fazla görüntü ekleyemezsiniz";
         public static string AuthorizationDenied = "Yetkiniz yok";
+        public static string CarCountOfBrandError = "10'dan fazla araç olamaz";
     }
 }
